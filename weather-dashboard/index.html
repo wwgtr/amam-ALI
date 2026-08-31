@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة الطقس — Glass Weather</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="panel" role="main" aria-labelledby="appTitle">
+    <header class="header">
+      <h1 id="appTitle">لوحة الطقس</h1>
+      <p class="subtitle">ابحث عن مدينة لعرض الطقس الحالي وتوقعات 7 أيام</p>
+    </header>
+
+    <section class="controls" aria-label="Search and settings">
+      <label for="searchInput" class="visually-hidden">ابحث عن مدينة</label>
+      <input id="searchInput" type="search" placeholder="ابحث عن مدينة (مثال: Cairo)" aria-label="Search city" autocomplete="off">
+      <button id="searchBtn" class="btn" aria-label="Search">ابحث</button>
+
+      <div class="toggles" role="group" aria-label="Units">
+        <button id="unitToggle" class="btn small" aria-pressed="false" title="تبديل ℃ / ℉">°C / °F</button>
+      </div>
+    </section>
+
+    <section id="current" class="glass-card" aria-live="polite">
+      <div class="current-left">
+        <div id="weatherIcon" class="weather-icon" aria-hidden="true">🌤️</div>
+      </div>
+      <div class="current-right">
+        <div class="location-row">
+          <h2 id="cityName">—</h2>
+          <button id="saveBtn" class="btn small" title="حفظ الصورة">حفظ</button>
+        </div>
+        <div class="temp-row">
+          <div id="tempValue" class="temp">—</div>
+          <div id="desc" class="desc">—</div>
+        </div>
+        <div class="meta-row">
+          <div id="wind">—</div>
+          <div id="time">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="forecast" class="forecast" aria-label="7 day forecast">
+      <!-- forecast cards inserted here -->
+    </section>
+
+    <div id="suggestions" class="suggestions" role="listbox" aria-label="Search suggestions"></div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
