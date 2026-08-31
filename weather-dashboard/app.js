@@ -191,29 +191,23 @@ unitToggle.addEventListener('click', ()=>{
   }
 });
 
-// save as image — simple screenshot of current .glass-card using html2canvas-like approach is heavy; instead provide basic fallback: copy text to clipboard or download JSON.
-// For simplicity here we download a small PNG using canvas text render
-saveBtn.addEventListener('click', ()=>{
+// Improved save using html2canvas for accurate capture with styles
+saveBtn.addEventListener('click', async ()=>{
   try {
-    const canvas = document.createElement('canvas');
-    canvas.width = 800; canvas.height = 480;
-    const ctx = canvas.getContext('2d');
-    // background
-    ctx.fillStyle = '#071026';
-    ctx.fillRect(0,0,canvas.width, canvas.height);
-    // text
-    ctx.fillStyle = '#fff';
-    ctx.font = '34px Cairo, sans-serif';
-    ctx.fillText(cityNameEl.textContent || '-', 40, 80);
-    ctx.font = '64px Cairo, sans-serif';
-    ctx.fillText(tempValueEl.textContent || '-', 40, 160);
-    ctx.font = '28px Cairo, sans-serif';
-    ctx.fillText(descEl.textContent || '-', 40, 210);
+    const target = document.querySelector('.panel');
+    if (!window.html2canvas) {
+      showToast('مكتبة الحفظ غير مُحمّلة');
+      return;
+    }
+    showToast('جارٍ تجهيز الصورة...');
+    const canvas = await window.html2canvas(target, {backgroundColor: null, scale: 2, useCORS: true});
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
     link.download = `weather-${(cityNameEl.textContent||'city').replace(/\s+/g,'_')}.png`;
     link.click();
+    showToast('تم حفظ الصورة');
   } catch(e){
+    console.error(e);
     showToast('حصل خطأ في الحفظ');
   }
 });
